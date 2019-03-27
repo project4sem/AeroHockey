@@ -60,9 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Arrow.cs" />
-    <Compile Include="Assets\Primitives.cs" />
-    <Compile Include="Assets\Ring.cs" />
+    <Compile Include="Assets\Script\Arrow.cs" />
+    <Compile Include="Assets\Script\EventManager.cs" />
+    <Compile Include="Assets\Script\Ring.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Unity/myfiles/Test2d/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
