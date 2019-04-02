@@ -24,23 +24,18 @@ public class Arrow : MonoBehaviour
         defaultPos = new Vector3(0, length + length / 5, 0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnEnable()
     {
-        EventManager.OnClicked += RemoveArrow;
+
         EventManager.MClicked += ChangeArrowPos;
     }
 
     private void OnDisable()
     {
-        EventManager.OnClicked -= RemoveArrow;
+
         EventManager.MClicked -= ChangeArrowPos;
     }
-    private void RemoveArrow() {
+    public void RemoveArrow() {
         Debug.Log("ArrowDestroyed");
         UnityEngine.Object.Destroy(this.gameObject);
     }
@@ -49,17 +44,17 @@ public class Arrow : MonoBehaviour
         Vector3 point = new Vector3();
         Vector2 mousePos = new Vector2();
         //Define mouse position relative to UI in pixels
-        mousePos.x = curEvent.mousePosition.x;
-        mousePos.y = curEvent.mousePosition.y;
+        Debug.Log(Input.mousePosition.x);
+        mousePos.x = Input.mousePosition.x;
+        mousePos.y = Input.mousePosition.y;
         //Define vector connecting camera and mouse position
         point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
         //Set z coordinate of vector to 0 because we are in OXY plane,
         //Otherwise angles will be counted in OXYZ
         point.z = 0;
-
-        float angle = 180f - Vector3.Angle(point, defaultPos);
+        Debug.Log(point);
+        float angle = Vector3.Angle(point, defaultPos);
         //Vecor3.Angle return abs(angle), so if angle is negative changes are required,
-        //because of quaternion usage
         if (point.x > 0) {
             angle = -angle;
         }

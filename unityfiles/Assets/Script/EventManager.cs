@@ -1,28 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class EventManager : MonoBehaviour
+public class EventManager : MonoBehaviour, IPointerClickHandler
 {
-    public delegate void ClickAction();
-    public static event ClickAction OnClicked;
 
     public delegate void MouseClickAction();
     public static event MouseClickAction MClicked;
 
-
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(10, 10, 150, 100), "Start"))
-        {
-            if (OnClicked != null)
-                OnClicked();
-        }
-
-        if (Input.GetKeyDown("mouse 0")) {
-            if (MClicked != null)
-                MClicked();
-        }
-            
+    public void OnPointerClick(PointerEventData eventData) {
+        Debug.Log("Clicked");
+        if(MClicked != null)
+            MClicked();
     }
+    
 }

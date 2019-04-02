@@ -32,16 +32,8 @@ public class Ring : MonoBehaviour
         gameObject.transform.position += new Vector3(speedX * Time.deltaTime,0,0);
     }
 
-    //Subscring for event after creation
-    private void OnEnable()
-    {
-        EventManager.OnClicked += StartMoving;
-    }
+ 
 
-    private void OnDisable()
-    {
-        EventManager.OnClicked -= StartMoving;
-    }
 
     public void StartMoving()
     {
@@ -60,7 +52,8 @@ public class Ring : MonoBehaviour
     }
 
     private void Torus()
-    {        int totalVertices = segments * tubes;
+    {
+        int totalVertices = segments * tubes;
         int totalPrimitives = totalVertices * 2;
         int totalIndices = totalPrimitives * 3;
 
