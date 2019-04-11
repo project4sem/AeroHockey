@@ -63,6 +63,8 @@
     <Compile Include="Assets\Script\Arrow.cs" />
     <Compile Include="Assets\Script\EventManager.cs" />
     <Compile Include="Assets\Script\MainMenu.cs" />
+    <Compile Include="Assets\Script\MessageQueue.cs" />
+    <Compile Include="Assets\Script\MoveArrowTrigger.cs" />
     <Compile Include="Assets\Script\Ring.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Unity/github/AeroHockey/unityfiles/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

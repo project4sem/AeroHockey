@@ -26,14 +26,13 @@ public class Arrow : MonoBehaviour
 
     private void OnEnable()
     {
-
-        EventManager.MClicked += ChangeArrowPos;
+        EventManager.StartListening("changearrowpos",ChangeArrowPos);
     }
 
     private void OnDisable()
     {
 
-        EventManager.MClicked -= ChangeArrowPos;
+        EventManager.StopListening("changearrowpos", ChangeArrowPos);
     }
     public void RemoveArrow() {
         Debug.Log("ArrowDestroyed");
