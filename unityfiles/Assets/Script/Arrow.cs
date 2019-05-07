@@ -7,7 +7,9 @@ using System;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Arrow : MonoBehaviour
 {
-    public float length;
+    private float length = 1.5f;
+    public float lengthX;
+    public float lengthY;
     private float start_length;
     private float scale;
 
@@ -20,6 +22,8 @@ public class Arrow : MonoBehaviour
     void Start()
     {
         start_length = length;
+        lengthX = 0;
+        lengthY = length;
         CreateArrow();
         cam = Camera.main;
         //Define basic quaternion position of the arrow
@@ -61,6 +65,9 @@ public class Arrow : MonoBehaviour
         if (point.x > 0) {
             angle = -angle;
         }
+
+        lengthY = point.y;
+        lengthX = point.x;
         //Set rotation quaternion around Oz and change the rotation angle of the object
         Quaternion rotQ = new Quaternion(0, 0,
                                     (float)Math.Sin(PI * (angle/180)/2),

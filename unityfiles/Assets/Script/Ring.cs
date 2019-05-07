@@ -9,6 +9,7 @@ using System;
 public class Ring : MonoBehaviour
 {
     private float speedX;
+    private float speedY;
     private double RotSpeed;
     private float time;
 
@@ -42,7 +43,7 @@ public class Ring : MonoBehaviour
 
     void Update()
     {
-        gameObject.transform.localPosition = new Vector3(speedX * time,0,0);
+        gameObject.transform.localPosition = new Vector3(speedX * time, speedY * time, 0);
         time += Time.deltaTime;
     }
  
@@ -51,7 +52,8 @@ public class Ring : MonoBehaviour
         time = 0;
 
         //change speed (will be changed by arrow position)
-        speedX = 3* (GameObject.Find("Arrow").GetComponent<Arrow>().length);
+        speedX = 3 * (GameObject.Find("Arrow").GetComponent<Arrow>().lengthX);
+        speedY = 3 * (GameObject.Find("Arrow").GetComponent<Arrow>().lengthY);
 
         //Change starting rotation
 
