@@ -8,10 +8,9 @@ using System;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Ring : MonoBehaviour
 {
-    
-
-    public float speedX;
-    public double RotSpeed;
+    private float speedX;
+    private double RotSpeed;
+    private float time;
 
     private static float Pi = 3.1415926535897931f;
 
@@ -23,22 +22,36 @@ public class Ring : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Creating torus(or ring if r << R)
         Torus();
+        CircleCollider2D mc = gameObject.AddComponent<CircleCollider2D>() as CircleCollider2D;
+
+        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.name == "Background")
+            return;
+        EventManager.TriggerEvent("changeorigin");
+        Debug.Log("collided " + collision.collider);
+        time = 0f;
+        speedX = -speedX;
     }
 
     void Update()
     {
-        gameObject.transform.position += new Vector3(speedX * Time.deltaTime,0,0);
+        gameObject.transform.localPosition = new Vector3(speedX * time,0,0);
+        time += Time.deltaTime;
     }
-
  
-
-
     public void StartMoving()
     {
+        time = 0;
+
         //change speed (will be changed by arrow position)
-        speedX = 1f;
+        speedX = 3* (GameObject.Find("Arrow").GetComponent<Arrow>().length);
 
         //Change starting rotation
 
@@ -47,7 +60,10 @@ public class Ring : MonoBehaviour
         //Find COMPONENT of an input field gameobject
         InputField IF_inputfield = IF.GetComponent<InputField>();
 
-        RotSpeed = double.Parse(IF_inputfield.text);
+        if (IF_inputfield.text == "")
+            RotSpeed = 0;
+        else
+            RotSpeed = double.Parse(IF_inputfield.text);
         
     }
 

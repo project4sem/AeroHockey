@@ -8,6 +8,9 @@ using System;
 public class Arrow : MonoBehaviour
 {
     public float length;
+    private float start_length;
+    private float scale;
+
     private Camera cam;
     Vector3 defaultPos;
     private  Quaternion defaultQ;
@@ -16,6 +19,7 @@ public class Arrow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        start_length = length;
         CreateArrow();
         cam = Camera.main;
         //Define basic quaternion position of the arrow
@@ -26,32 +30,32 @@ public class Arrow : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.StartListening("changearrowpos",ChangeArrowPos);
+        EventManager.StartListening("changearrowpos", delegate { ChangeArrowPos(); });
     }
-
     private void OnDisable()
     {
-
-        EventManager.StopListening("changearrowpos", ChangeArrowPos);
+        EventManager.StopListening("changearrowpos", delegate { ChangeArrowPos(); });
     }
     public void RemoveArrow() {
-        Debug.Log("ArrowDestroyed");
-        UnityEngine.Object.Destroy(this.gameObject);
+        Debug.Log("ArrowDestroyed1");
+        Destroy(this.gameObject);
     }
     void ChangeArrowPos() {
         Event curEvent = Event.current;
         Vector3 point = new Vector3();
         Vector2 mousePos = new Vector2();
         //Define mouse position relative to UI in pixels
-        Debug.Log(Input.mousePosition.x);
         mousePos.x = Input.mousePosition.x;
         mousePos.y = Input.mousePosition.y;
         //Define vector connecting camera and mouse position
         point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
         //Set z coordinate of vector to 0 because we are in OXY plane,
-        //Otherwise angles will be counted in OXYZ
         point.z = 0;
+
         Debug.Log(point);
+        Debug.Log(mousePos + "," + cam.nearClipPlane);
+
+        scale = Vector3.Distance(Vector3.zero, point) / start_length;
         float angle = Vector3.Angle(point, defaultPos);
         //Vecor3.Angle return abs(angle), so if angle is negative changes are required,
         if (point.x > 0) {
@@ -62,7 +66,8 @@ public class Arrow : MonoBehaviour
                                     (float)Math.Sin(PI * (angle/180)/2),
                                     (float)Math.Cos(PI * (angle / 180) / 2));
         gameObject.transform.rotation =  defaultQ * rotQ;
-
+        gameObject.transform.localScale = new Vector3(1, scale);
+        length = Vector3.Distance(Vector3.zero, point);
     }
     private void CreateArrow() {
 
@@ -97,4 +102,5 @@ public class Arrow : MonoBehaviour
 
         mFilter.mesh = mesh;
     }
+    
 }
