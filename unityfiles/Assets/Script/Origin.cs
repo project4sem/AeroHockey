@@ -10,12 +10,11 @@ public class Origin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.StartListening("changeorigin", delegate { ChangePos(); });
+        EventManager.StartListening("changeorigin" + gameObject.name, delegate { ChangePos(); });
     }
 
     private void ChangePos()
     {
-        Debug.Log("changepos");
         Transform ring = gameObject.transform.GetChild(0);
         transform.position = new Vector3(ring.position.x, ring.position.y, transform.position.z);
         ring.position = Vector3.zero;

@@ -35,7 +35,7 @@ public class Ring : MonoBehaviour
     {
         if (collision.collider.name == "Background")
             return;
-        EventManager.TriggerEvent("changeorigin");
+        EventManager.TriggerEvent("changeorigin" + gameObject.transform.parent.name);
         Debug.Log("collided " + collision.collider);
         time = 0f;
         speedX = -speedX;
@@ -52,8 +52,8 @@ public class Ring : MonoBehaviour
         time = 0;
 
         //change speed (will be changed by arrow position)
-        speedX = 3 * (GameObject.Find("Arrow").GetComponent<Arrow>().lengthX);
-        speedY = 3 * (GameObject.Find("Arrow").GetComponent<Arrow>().lengthY);
+        speedX = 3 * (GameObject.Find("Arrow").GetComponent<Arrow>().GetLengthX());
+        speedY = 3 * (GameObject.Find("Arrow").GetComponent<Arrow>().GetLengthY());
 
         //Change starting rotation
 
