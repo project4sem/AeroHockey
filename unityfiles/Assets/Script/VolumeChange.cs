@@ -41,10 +41,6 @@ public class VolumeChange : MonoBehaviour
         }
         AudioListener.volume = master;
     }
-    private void OnDisable()
-    {
-        Save();
-    }
     public void SFXupdate()
     {
         sfx = sfxSlider.value;
@@ -53,7 +49,6 @@ public class VolumeChange : MonoBehaviour
         {
             SFXsrc.GetComponent<AudioSource>().volume = sfx;
         }
-        Save();
     }
     public void Musicupdate()
     {
@@ -63,19 +58,20 @@ public class VolumeChange : MonoBehaviour
         {
             musicsrc.GetComponent<AudioSource>().volume = music;
         }
-        Save();
     }
     public void Masterupdate()
     {
         master = masterSlider.value;
         AudioListener.volume = master;
-        Save();
     }
 
     public void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/volumeInfo.dat");
+        FileStream file;
+        
+        file = File.Open(Application.persistentDataPath + "/volumeInfo.dat", FileMode.Create);
+        
 
         VolumeData data = new VolumeData();
         data.master = master;
@@ -88,16 +84,19 @@ public class VolumeChange : MonoBehaviour
 
     public void Load()
     {
-        if (File.Exists(Application.persistentDataPath + "/volumeInfo.dat"))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/volumeInfo.dat", FileMode.Open);
-            VolumeData data = bf.Deserialize(file) as VolumeData;
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/volumeInfo.dat", FileMode.Open);
+        VolumeData data = bf.Deserialize(file) as VolumeData;
 
-            sfx = data.sfx;
-            music = data.music;
-            master = data.master;
-        }
+        sfx = data.sfx;
+        music = data.music;
+        master = data.master;
+
+        musicSlider.value = music;
+        sfxSlider.value = sfx;
+        masterSlider.value = master;
+
+        file.Close();
     }
 }
 

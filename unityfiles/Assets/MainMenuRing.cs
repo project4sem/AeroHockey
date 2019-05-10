@@ -27,7 +27,8 @@ public class MainMenuRing : MonoBehaviour
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
         rb.isKinematic = false;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
+        Time.timeScale = 1;
+        time = 0;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
