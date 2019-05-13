@@ -8,8 +8,8 @@ using System;
 public class Arrow : MonoBehaviour
 {
     private float length = 1.5f;
-    public float lengthX;
-    public float lengthY;
+    private float lengthX;
+    private float lengthY;
     private float start_length;
     private float scale;
 
@@ -109,5 +109,12 @@ public class Arrow : MonoBehaviour
 
         mFilter.mesh = mesh;
     }
-    
+    public float GetLengthX()
+    {
+        return lengthX;
+    }
+    public float GetLengthY()
+    {
+        return lengthY;
+    }
 }
