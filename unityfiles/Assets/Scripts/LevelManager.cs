@@ -5,8 +5,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class LevelDataLoad : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     private List<string> levelData;
 
@@ -29,7 +30,12 @@ public class LevelDataLoad : MonoBehaviour
                 break;
             }
         }
-        Save();
+        
+    }
+
+    public void PlayLevel(string level_number)
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + int.Parse(level_number));
     }
 
     public void Save()
