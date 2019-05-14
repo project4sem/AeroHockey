@@ -12,7 +12,6 @@ public class VolumeChange : MonoBehaviour
     public Slider musicSlider;
     public Slider sfxSlider;
     public Slider masterSlider;
-    public AudioSource myMusic;
 
     private float music;
     private float sfx;

@@ -60,20 +60,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\LevelDataLoad.cs" />
-    <Compile Include="Assets\MainMenuRing.cs" />
-    <Compile Include="Assets\Script\Arrow.cs" />
-    <Compile Include="Assets\Script\EventManager.cs" />
-    <Compile Include="Assets\Script\InputManager.cs" />
-    <Compile Include="Assets\Script\KeyboardButtonEvents.cs" />
-    <Compile Include="Assets\Script\MainMenu.cs" />
-    <Compile Include="Assets\Script\MessageQueue.cs" />
-    <Compile Include="Assets\Script\MoveArrowTrigger.cs" />
-    <Compile Include="Assets\Script\Origin.cs" />
-    <Compile Include="Assets\Script\ProcessManager.cs" />
-    <Compile Include="Assets\Script\Ring.cs" />
-    <Compile Include="Assets\Script\UIManager.cs" />
-    <Compile Include="Assets\Script\VolumeChange.cs" />
+    <Compile Include="Assets\Scripts\Arrow.cs" />
+    <Compile Include="Assets\Scripts\EventManager.cs" />
+    <Compile Include="Assets\Scripts\InputManager.cs" />
+    <Compile Include="Assets\Scripts\KeyboardButtonEvents.cs" />
+    <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\MainMenuRing.cs" />
+    <Compile Include="Assets\Scripts\MessageQueue.cs" />
+    <Compile Include="Assets\Scripts\MoveArrowTrigger.cs" />
+    <Compile Include="Assets\Scripts\Origin.cs" />
+    <Compile Include="Assets\Scripts\ProcessManager.cs" />
+    <Compile Include="Assets\Scripts\Ring.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\VolumeChange.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
