@@ -36,6 +36,7 @@ struct Ret_all
 };
 
 struct Ret_all DLL_EXPORT movecalc(const double _factor_v , const double _factor_w , const double _dt , const double _r , const struct Coord _coord);
+int DLL_EXPORT her(int x);
 #ifdef __cplusplus
 }
 #endif

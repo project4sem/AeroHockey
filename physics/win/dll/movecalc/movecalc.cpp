@@ -81,6 +81,11 @@ static DWORD WINAPI pthread_func_w(void*)
     ExitThread(0);
 }
 
+int DLL_EXPORT her(int x)
+{
+    return x;
+}
+
 struct Ret_all DLL_EXPORT movecalc(const double _factor_v , const double _factor_w , const double _dt , const double _r , const struct Coord _coord)
 {
     factor_v = _factor_v;
