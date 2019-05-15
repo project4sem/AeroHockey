@@ -29,7 +29,7 @@ struct Ret_all
 Also, ``_factor_v``, ``_factor_w`` and ``_r`` are factors of intigrations, which are defined by user.
 ``_dt`` is a time of discritisation of movement.
 
-This function gets ``_coord`` of object and returns ``struct Ret_all``, which consists of ``struct Coord`` - a position of object afer ``_dt`` and ``struct Ret_factors``, describes movement at this time:
+This function gets ``_coord`` of object and returns ``struct Ret_all``, which consists of ``struct Coord`` - a position of object afer ``_dt`` and ``struct Ret_factors`` - describes movement at this time:
 ```
 x = cx0 + cx1*t + cx2*t^2
 y = cy0 + cy1*t + cy2*t^2
