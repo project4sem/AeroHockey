@@ -1,24 +1,34 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
 using System;
-
+using UnityEngine.SceneManagement;
+//using movecalcVS;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Ring : MonoBehaviour
 {
+    private Ret_all move_data;
+
     private float speedX;
     private float speedY;
     private double RotSpeed;
     private float time;
 
-    private static float Pi = 3.1415926535897931f;
+    private static float pi = 3.1415926535897931f;
 
+    private bool launched;
     public float segmentRadius;
     public float tubeRadius;
     public int segments;
     public int tubes;
+
+   
+    [DllImport("movecalcVS",EntryPoint = "movecalc")]
+    private static extern Ret_all Movecalc( double _factor_v,  double _factor_w,  double _dt,  double _r,   Coord _coord);
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +39,17 @@ public class Ring : MonoBehaviour
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
         rb.isKinematic = false;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        launched = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.name == "Background")
+        if (collision.collider.tag == "Background")
             return;
+        if (collision.collider.tag == "Victory target")
+            Victory();
+        if (collision.collider.tag == "Fail Object")
+            Defeat();
         EventManager.TriggerEvent("changeorigin" + gameObject.transform.parent.name);
         Debug.Log("collided " + collision.collider);
         time = 0f;
@@ -43,14 +58,21 @@ public class Ring : MonoBehaviour
 
     void Update()
     {
-        gameObject.transform.localPosition = new Vector3(speedX * time, speedY * time, 0);
-        time += Time.deltaTime;
+        if (launched)
+        {
+                gameObject.transform.localPosition = new Vector3(move_data.GetResX(time),
+                                                                    move_data.GetResY(time),
+                                                                   0);
+           // gameObject.transform.localPosition = new Vector3(speedX * time, speedY * time, 0);
+            time += Time.deltaTime;
+            move_data = Movecalc(1, 1, Time.deltaTime, 1, move_data.Coord);
+        }
     }
  
     public void StartMoving()
     {
         time = 0;
-
+        launched = true;
         //change speed (will be changed by arrow position)
         speedX = 3 * (GameObject.Find("Arrow").GetComponent<Arrow>().GetLengthX());
         speedY = 3 * (GameObject.Find("Arrow").GetComponent<Arrow>().GetLengthY());
@@ -61,11 +83,15 @@ public class Ring : MonoBehaviour
         GameObject IF = GameObject.Find("InputField");
         //Find COMPONENT of an input field gameobject
         InputField IF_inputfield = IF.GetComponent<InputField>();
-
+        Debug.Log(IF_inputfield.text);
         if (IF_inputfield.text == "")
             RotSpeed = 0;
         else
             RotSpeed = double.Parse(IF_inputfield.text);
+
+        //Pass everything to structures and then to dll function
+        move_data = new Ret_all(0, 0, speedX, speedY, RotSpeed);
+        move_data = Movecalc(1, 1, Time.deltaTime, 1, move_data.Coord);
         
     }
 
@@ -80,8 +106,8 @@ public class Ring : MonoBehaviour
         ArrayList indicesList = new ArrayList();
 
         // Calculate size of segment and tube
-        float segmentSize = 2 * Pi / segments;
-        float tubeSize = 2 * Pi / tubes;
+        float segmentSize = 2 * pi / segments;
+        float tubeSize = 2 * pi / tubes;
 
         // Create floats for our xyz coordinates
         float x = 0;
@@ -171,4 +197,54 @@ public class Ring : MonoBehaviour
         mFilter.mesh = mesh;
 
     }
+    private void Victory()
+    {
+        EventManager.TriggerEvent("victory");
+    }
+    private void Defeat()
+    {
+        EventManager.TriggerEvent("reload");
+    }
 }
+
+[StructLayout(LayoutKind.Sequential)]
+struct Coord
+{
+   public double x, y;
+   public double vx, vy, w;
+
+    public Coord(double x, double y, double vx, double vy, double w)
+    {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.w = w;
+    }
+};
+[StructLayout(LayoutKind.Sequential)]
+struct Ret_factors
+{
+    public double cx0, cx1, cx2;
+    public double cy0, cy1, cy2;
+};
+[StructLayout(LayoutKind.Sequential)]
+struct Ret_all
+{
+    public Coord Coord;
+    public Ret_factors factors;
+
+    public Ret_all(double x, double y, double vx, double vy, double w)
+    {
+        Coord = new Coord(x, y, vx, vy, w);
+        factors = new Ret_factors();
+    }
+    public float GetResX(float time)
+    {
+        return (float) factors.cx0 + (float) factors.cx1 * time + (float) factors.cx2 * time * time;
+    }
+    public float GetResY(float time)
+    {
+        return (float) factors.cy0 + (float) factors.cy1 * time + (float) factors.cy2 * time * time;
+    }
+};
