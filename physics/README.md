@@ -1,13 +1,12 @@
 # movecalc .dll
 This is a short man how to use movecalc ``.dll``.
-In [this](https://github.com/project4sem/AeroHockey/tree/master/physics/win/dll/movecalc) path you can find ``movecalc.h`` file,
-in [this](https://github.com/project4sem/AeroHockey/tree/master/physics/win/dll/movecalc/bin/Debug) path you can find ``movecalc.dll`` file.
+In [this](https://github.com/project4sem/AeroHockey/tree/master/physics/movecalcVS/x64/Release) path you can find ``movecalcVS.dll`` file.
 
 This is the main function: 
 ```
-struct Ret_all DLL_EXPORT movecalc(const double _factor_v , const double _factor_w , const double _dt , const double _r , const struct Coord _coord)
+struct Ret_all DLL_EXPORT movecalc(double _factor_v , double _factor_w , double _dt , double _r , struct Coord _coord)
 ```
-, where structs are defined this way:
+, structs are defined this way:
 ```
 struct Coord
 {
