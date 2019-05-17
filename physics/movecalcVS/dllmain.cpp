@@ -106,7 +106,7 @@ extern "C"
 		if (_coord.vx == 0 && _coord.vy == 0 && _coord.w == 0)
 		{
 			ret_all.coord = _coord;
-			ret_all.factors = { 0 , 0 , 0 , 0 , 0 , 0 };
+			ret_all.factors = { _coord.x , 0 , 0 , _coord.y , 0 , 0 };
 			return ret_all;
 		}
 
