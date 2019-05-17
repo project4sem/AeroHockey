@@ -16,7 +16,7 @@ extern "C"
 	}
 
 	struct Coord coord;
-	struct Ret_all ret_all;
+	struct Coord ret;
 
 	double factor_v, factor_w, dt, r;
 
@@ -38,13 +38,11 @@ extern "C"
 		// calc
 		gsl_integration_qags(&F, 0, 2 * 3.1415, 0, 1e-4, 1000, w, &result, &error);
 
-		ret_all.factors.cx2 = result / 2;
-		ret_all.coord.vx = coord.vx - result * dt;
+		ret.vx = coord.vx - result * dt;
 
-		if (ret_all.coord.vx * coord.vx < 0)
+		if (ret.vx * coord.vx < 0)
 		{
-			ret_all.coord.vx = 0;
-			ret_all.factors.cx2 = coord.vx / dt / 2;
+			ret.vx = 0;
 		}
 
 		gsl_integration_workspace_free(w);
@@ -64,14 +62,14 @@ extern "C"
 		// calc
 		gsl_integration_qags(&F, 0, 2 * 3.1415, 0, 1e-4, 1000, w, &result, &error);
 
-		ret_all.factors.cy2 = result / 2;
-		ret_all.coord.vy = coord.vy - result * dt;
+		ret.vy = coord.vy - result * dt;
 
-		if (ret_all.coord.vy * coord.vy < 0)
+		if (ret.vy * coord.vy < 0)
 		{
-			ret_all.coord.vy = 0;
-			ret_all.factors.cy2 = coord.vy / dt / 2;
+			ret.vy = 0;
 		}
+
+		ret.x = coord.x + ret.vx * dt + result * dt * dt / 2;
 
 		gsl_integration_workspace_free(w);
 		ExitThread(0);
@@ -90,24 +88,25 @@ extern "C"
 		// calc
 		gsl_integration_qags(&F, 0, 2 * 3.1415, 0, 1e-4, 1000, w, &result, &error);
 
-		ret_all.coord.w = coord.w - result * dt;
+		ret.w = coord.w - result * dt;
 
-		if (ret_all.coord.w * coord.w < 0)
+		if (ret.w * coord.w < 0)
 		{
-			ret_all.coord.w = 0;
+			ret.w = 0;
 		}
+
+		ret.y = coord.y + ret.vy * dt + result * dt * dt / 2;
 
 		gsl_integration_workspace_free(w);
 		ExitThread(0);
 	}
 
-	struct Ret_all MOVECALC_API movecalc(double _factor_v, double _factor_w, double _dt, double _r, struct Coord _coord)
+	struct Coord MOVECALC_API movecalc(double _factor_v, double _factor_w, double _dt, double _r, struct Coord _coord)
 	{
 		if (_coord.vx == 0 && _coord.vy == 0 && _coord.w == 0)
 		{
-			ret_all.coord = _coord;
-			ret_all.factors = { _coord.x , 0 , 0 , _coord.y , 0 , 0 };
-			return ret_all;
+			ret = _coord;
+			return ret;
 		}
 
 		factor_v = _factor_v;
@@ -127,17 +126,10 @@ extern "C"
 		hThreads[1] = CreateThread(NULL, 0, &pthread_func_vy, NULL, 0, NULL);
 		hThreads[2] = CreateThread(NULL, 0, &pthread_func_w, NULL, 0, NULL);
 
-		ret_all.factors.cx0 = coord.x;
-		ret_all.factors.cx1 = coord.vx;
-		ret_all.factors.cy0 = coord.y;
-		ret_all.factors.cy1 = coord.vy;
-
 		WaitForMultipleObjects(THREADS_NUM, hThreads, TRUE, INFINITE);
 
-		ret_all.coord.x = ret_all.factors.cx0 + ret_all.factors.cx1 * dt + ret_all.factors.cx2 * dt * dt;
-		ret_all.coord.y = ret_all.factors.cy0 + ret_all.factors.cy1 * dt + ret_all.factors.cy2 * dt * dt;
 
-		return ret_all;
+		return ret;
 	}
 
 }
