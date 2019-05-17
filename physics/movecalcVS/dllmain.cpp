@@ -41,6 +41,12 @@ extern "C"
 		ret_all.factors.cx2 = result / 2;
 		ret_all.coord.vx = coord.vx - result * dt;
 
+		if (ret_all.coord.vx * coord.vx < 0)
+		{
+			ret_all.coord.vx = 0;
+			ret_all.factors.cx2 = coord.vx / dt / 2;
+		}
+
 		gsl_integration_workspace_free(w);
 		ExitThread(0);
 	}
@@ -61,6 +67,12 @@ extern "C"
 		ret_all.factors.cy2 = result / 2;
 		ret_all.coord.vy = coord.vy - result * dt;
 
+		if (ret_all.coord.vy * coord.vy < 0)
+		{
+			ret_all.coord.vy = 0;
+			ret_all.factors.cy2 = coord.vy / dt / 2;
+		}
+
 		gsl_integration_workspace_free(w);
 		ExitThread(0);
 	}
@@ -80,12 +92,24 @@ extern "C"
 
 		ret_all.coord.w = coord.w - result * dt;
 
+		if (ret_all.coord.w * coord.w < 0)
+		{
+			ret_all.coord.w = 0;
+		}
+
 		gsl_integration_workspace_free(w);
 		ExitThread(0);
 	}
 
 	struct Ret_all MOVECALC_API movecalc(double _factor_v, double _factor_w, double _dt, double _r, struct Coord _coord)
 	{
+		if (_coord.vx == 0 && _coord.vy == 0 && _coord.w == 0)
+		{
+			ret_all.coord = _coord;
+			ret_all.factors = { 0 , 0 , 0 , 0 , 0 , 0 };
+			return ret_all;
+		}
+
 		factor_v = _factor_v;
 		factor_w = _factor_w;
 		dt = _dt;
