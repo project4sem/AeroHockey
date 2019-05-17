@@ -14,16 +14,21 @@ public class Ring : MonoBehaviour
     private float speedX;
     private float speedY;
     private double RotSpeed;
+    private double factor_v;
+    private double factor_w;
     private float time;
 
     private static float pi = 3.1415926535897931f;
 
     private bool launched;
-    public float segmentRadius;
-    public float tubeRadius;
-    public int segments;
-    public int tubes;
+    private readonly float segmentRadius = 1;
+    private readonly float tubeRadius = 0.1f;
+    private readonly int segments = 32;
+    private readonly int tubes = 32;
 
+    public InputField rotSpeedIF;
+    public InputField factor_vIF;
+    public InputField factor_wIF;
    
     [DllImport("movecalcVS",EntryPoint = "movecalc")]
     private static extern Ret_all Movecalc( double _factor_v,  double _factor_w,  double _dt,  double _r,   Coord _coord);
@@ -65,7 +70,7 @@ public class Ring : MonoBehaviour
                                                                    0);
            // gameObject.transform.localPosition = new Vector3(speedX * time, speedY * time, 0);
             time += Time.deltaTime;
-            move_data = Movecalc(1, 1, Time.deltaTime, 1, move_data.Coord);
+            move_data = Movecalc(factor_v, factor_w, Time.deltaTime, 1, move_data.Coord);
         }
     }
  
@@ -79,19 +84,28 @@ public class Ring : MonoBehaviour
 
         //Change starting rotation
 
-        //Find the input field gameobject
-        GameObject IF = GameObject.Find("InputField");
-        //Find COMPONENT of an input field gameobject
-        InputField IF_inputfield = IF.GetComponent<InputField>();
-        Debug.Log(IF_inputfield.text);
-        if (IF_inputfield.text == "")
+        
+        Debug.Log(rotSpeedIF.text);
+        if (rotSpeedIF.text == "")
             RotSpeed = 0;
         else
-            RotSpeed = double.Parse(IF_inputfield.text);
+            RotSpeed = double.Parse(rotSpeedIF.text);
+
+        Debug.Log(factor_vIF.text);
+        if (factor_vIF.text == "")
+            factor_v = 1;
+        else
+            factor_v = double.Parse(factor_vIF.text);
+
+        Debug.Log(factor_wIF.text);
+        if (factor_wIF.text == "")
+            factor_w = 1;
+        else
+            factor_w = double.Parse(factor_wIF.text);
 
         //Pass everything to structures and then to dll function
         move_data = new Ret_all(0, 0, speedX, speedY, RotSpeed);
-        move_data = Movecalc(1, 1, Time.deltaTime, 1, move_data.Coord);
+        move_data = Movecalc(factor_v, factor_w, Time.deltaTime, 1, move_data.Coord);
         
     }
 
@@ -204,6 +218,11 @@ public class Ring : MonoBehaviour
     private void Defeat()
     {
         EventManager.TriggerEvent("reload");
+    }
+
+    public float GetRadius()
+    {
+        return segmentRadius;
     }
 }
 

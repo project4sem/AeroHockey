@@ -5,6 +5,9 @@ SceneListBegin?
 Assets/Scenes/MainMenu.unity
 Assets/Scenes/Level1.unity
 Assets/Scenes/Level2.unity
+Assets/Scenes/Level3.unity
+Assets/Scenes/Level4.unity
+Assets/Scenes/Level5.unity
 SceneListEnd?
 984dcc0ba3707b7691fbdca8ff508d28 Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 01aa15e337e3a9c62f15153dfac6d589 Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
@@ -129,7 +132,7 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.UIManager
 c5b0e47a170b2976a70a737115f6b77e Assembly-CSharp.dll:.VolumeChange
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
-dfcb2d2ad2add8ab8e5cd69ff84a3526 Assembly-CSharp.dll:.Ring
+a866ea8fafb2aeaf6f1d79d00db5c65c Assembly-CSharp.dll:.Ring
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
