@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class Ring : MonoBehaviour
 {
-    private Ret_all move_data;
+    private Coord move_data;
 
     private float speedX;
     private float speedY;
@@ -31,7 +31,7 @@ public class Ring : MonoBehaviour
     public InputField factor_wIF;
    
     [DllImport("movecalcVS",EntryPoint = "movecalc")]
-    private static extern Ret_all Movecalc( double _factor_v,  double _factor_w,  double _dt,  double _r,   Coord _coord);
+    private static extern Coord Movecalc( double _factor_v,  double _factor_w,  double _dt,  double _r,   Coord _coord);
 
     
 
@@ -65,12 +65,12 @@ public class Ring : MonoBehaviour
     {
         if (launched)
         {
-                gameObject.transform.localPosition = new Vector3(move_data.GetResX(time),
-                                                                    move_data.GetResY(time),
+                gameObject.transform.localPosition = new Vector3((float) move_data.x,
+                                                                    (float)move_data.y,
                                                                    0);
            // gameObject.transform.localPosition = new Vector3(speedX * time, speedY * time, 0);
             time += Time.deltaTime;
-            move_data = Movecalc(factor_v, factor_w, Time.deltaTime, 1, move_data.Coord);
+            move_data = Movecalc(factor_v, factor_w, Time.deltaTime, 1, move_data);
         }
     }
  
@@ -104,8 +104,8 @@ public class Ring : MonoBehaviour
             factor_w = double.Parse(factor_wIF.text);
 
         //Pass everything to structures and then to dll function
-        move_data = new Ret_all(0, 0, speedX, speedY, RotSpeed);
-        move_data = Movecalc(factor_v, factor_w, Time.deltaTime, 1, move_data.Coord);
+        move_data = new Coord(0, 0, speedX, speedY, RotSpeed);
+        move_data = Movecalc(factor_v, factor_w, Time.deltaTime, 1, move_data);
         
     }
 
@@ -241,29 +241,31 @@ struct Coord
         this.w = w;
     }
 };
-[StructLayout(LayoutKind.Sequential)]
+/*[StructLayout(LayoutKind.Sequential)]
 struct Ret_factors
 {
     public double cx0, cx1, cx2;
     public double cy0, cy1, cy2;
-};
+};*/
 [StructLayout(LayoutKind.Sequential)]
 struct Ret_all
 {
     public Coord Coord;
-    public Ret_factors factors;
+    //public Ret_factors factors;
 
     public Ret_all(double x, double y, double vx, double vy, double w)
     {
         Coord = new Coord(x, y, vx, vy, w);
-        factors = new Ret_factors();
+        //factors = new Ret_factors();
     }
-    public float GetResX(float time)
+    /*public float GetResX(float time)
     {
-        return (float) factors.cx0 + (float) factors.cx1 * time + (float) factors.cx2 * time * time;
+        Debug.Log((factors.cx0 + factors.cx1 * time + factors.cx2 * time * time));
+        Debug.Log((float) (factors.cx0 + factors.cx1 * time + factors.cx2 * time * time));
+        return (float) ( factors.cx0 +  factors.cx1 * time +  factors.cx2 * time * time);
     }
     public float GetResY(float time)
     {
         return (float) factors.cy0 + (float) factors.cy1 * time + (float) factors.cy2 * time * time;
-    }
+    }*/
 };
