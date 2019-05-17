@@ -35,8 +35,7 @@ public class UIManager : MonoBehaviour
     //Reloads the Level
     public void Reload()
     {
-        Scene curScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(curScene.name);
+        EventManager.TriggerEvent("reload");
     }
 
     //controls the pausing of the scene

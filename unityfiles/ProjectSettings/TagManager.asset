@@ -8,6 +8,9 @@ TagManager:
   - MusicPlayer
   - SFX player
   - LevelButton
+  - Victory target
+  - Background
+  - Fail Object
   layers:
   - Default
   - TransparentFX
