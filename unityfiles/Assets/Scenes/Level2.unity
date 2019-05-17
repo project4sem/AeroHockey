@@ -182,7 +182,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter RotSpeed coefficient
+  m_Text: RotSpeed coefficient
 --- !u!222 &30425448
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1356,7 +1356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715382639}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0.0149, y: 0.0039, z: -7.6}
+  m_LocalPosition: {x: 0.0149, y: -0.00616, z: -7.6}
   m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_Children: []
   m_Father: {fileID: 2079180335}
@@ -2617,7 +2617,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter v coefficient
+  m_Text: v coefficient
 --- !u!222 &1073069809
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5333,7 +5333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -150, y: 245}
+  m_AnchoredPosition: {x: -153, y: 245}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1973131465
@@ -6139,10 +6139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9d26370c1f61c43a34528a961ea8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  segmentRadius: 1
-  tubeRadius: 0.1
-  segments: 32
-  tubes: 32
   rotSpeedIF: {fileID: 213289165}
   factor_vIF: {fileID: 2035617230}
   factor_wIF: {fileID: 1973131465}

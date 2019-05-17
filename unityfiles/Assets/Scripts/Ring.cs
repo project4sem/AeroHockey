@@ -21,10 +21,10 @@ public class Ring : MonoBehaviour
     private static float pi = 3.1415926535897931f;
 
     private bool launched;
-    public float segmentRadius;
-    public float tubeRadius;
-    public int segments;
-    public int tubes;
+    private readonly float segmentRadius = 1;
+    private readonly float tubeRadius = 0.1f;
+    private readonly int segments = 32;
+    private readonly int tubes = 32;
 
     public InputField rotSpeedIF;
     public InputField factor_vIF;
@@ -218,6 +218,11 @@ public class Ring : MonoBehaviour
     private void Defeat()
     {
         EventManager.TriggerEvent("reload");
+    }
+
+    public float GetRadius()
+    {
+        return segmentRadius;
     }
 }
 

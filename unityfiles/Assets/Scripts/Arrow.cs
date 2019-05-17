@@ -80,7 +80,7 @@ public class Arrow : MonoBehaviour
 
         float width;
 
-        width = (GameObject.Find("Ring").GetComponent<Ring>().segmentRadius)/10;
+        width = (GameObject.Find("Ring").GetComponent<Ring>().GetRadius())/10;
 
         //Set vertices
         Vector3[] vertices = new Vector3[7];
@@ -117,4 +117,5 @@ public class Arrow : MonoBehaviour
     {
         return lengthY;
     }
+  
 }
