@@ -32,7 +32,7 @@ extern "C"
 	{
 		struct Coord _ret = _coord;
 		_ret.vx = _coord.vx * cos(phi) + _coord.vy * sin(phi) - vx_e;
-		_ret.vy = _coord.vx * sin(phi) + _coord.vy * cos(phi) - vy_e;
+		_ret.vy = -_coord.vx * sin(phi) + _coord.vy * cos(phi) - vy_e;
 		return _ret;
 	}
 
