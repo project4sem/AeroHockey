@@ -39,10 +39,10 @@ extern "C"
 	double hit_vx(double S)
 	{
 		double vx;
-		if (sgn_before)
-			vx = current.vx - mu * S / m;
-		else
+		if (sgn_before >= 0)
 			vx = current.vx + mu * S / m;
+		else
+			vx = current.vx - mu * S / m;
 
 		return vx;
 	}
@@ -77,7 +77,7 @@ extern "C"
 		if ( current.vy >= 0)
 			return _coord;
 
-	//	printf("vx = %lf   vy = %lf\n", current.vx, current.vy);
+		printf("vx = %lf   vy = %lf\n", current.vx, current.vy);
 
 		double S = m * (k + 1) * current.vy;
 
@@ -92,14 +92,14 @@ extern "C"
 
 		sgn_after = signbit(ret_hit.vx + ret_hit.w * r_hit);
 
-	//	printf("vx = %lf   vy = %lf\n", ret_hit.vx, ret_hit.vy);
+		printf("vx = %lf   vy = %lf\n", ret_hit.vx, ret_hit.vy);
 
-		if (sgn_before * sgn_after <= 0)
+		if (sgn_before * sgn_after <= 0 && mu != 0)
 		{
-	//		printf("Pereschet\n");
+			printf("Pereschet\n");
 			double c = fabs((current.vx - r_hit * current.w) / 2 * m / mu);
 			ret_hit.vx = hit_vx(c);
-			ret_hit.w  = hit_w(c);
+			ret_hit.w  = hit_w(-c);
 		}
 	//	printf("vx = %lf   vy = %lf\n", ret_hit.vx, ret_hit.vy);
 		ret_hit = coord_trans_back(-obj.phi, -obj.vx , -obj.vy , ret_hit);
