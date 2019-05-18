@@ -338,3 +338,10 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+physics/dlltest/dlltest.cpp
+physics/dlltest/dlltest.sln
+physics/dlltest/dlltest.vcxproj
+physics/dlltest/dlltest.vcxproj.filters
+physics/dlltest/Header.h
+physics/dlltest/packages.config
+physics/movecalcVS/Source.cpp
