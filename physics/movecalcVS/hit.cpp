@@ -74,14 +74,18 @@ extern "C"
 
 		current = coord_trans(obj.phi , obj.vx , obj.vy , _coord);
 		
-		if ( current.vy >= 0)
-			return _coord;
+		if (current.vy >= 0)
+		{
+			obj.phi = obj.phi - M_PI;
+			current = coord_trans( obj.phi, obj.vx, obj.vy, _coord);
+		}
+			
 
 		printf("vx = %lf   vy = %lf\n", current.vx, current.vy);
 
 		double S = m * (k + 1) * current.vy;
 
-		sgn_before = signbit(current.vx + current.w * r_hit);
+		sgn_before = current.vx + current.w * r_hit;
 
 		ret_hit.x = current.x;
 		ret_hit.y = current.y;
@@ -90,9 +94,9 @@ extern "C"
 		ret_hit.vy = hit_vy();
 		ret_hit.w  = hit_w(S);
 
-		sgn_after = signbit(ret_hit.vx + ret_hit.w * r_hit);
+		sgn_after = ret_hit.vx + ret_hit.w * r_hit;
 
-		printf("vx = %lf   vy = %lf\n", ret_hit.vx, ret_hit.vy);
+		//printf("vx = %lf   vy = %lf\n", ret_hit.vx, ret_hit.vy);
 
 		if ( sgn_before * sgn_after <= 0 && mu != 0)
 		{
