@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\MoveArrowTrigger.cs" />
     <Compile Include="Assets\Scripts\Origin.cs" />
     <Compile Include="Assets\Scripts\Paint.cs" />
+    <Compile Include="Assets\Scripts\PaintManager.cs" />
     <Compile Include="Assets\Scripts\ProcessManager.cs" />
     <Compile Include="Assets\Scripts\Ring.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
