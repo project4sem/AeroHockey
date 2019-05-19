@@ -1,8 +1,9 @@
 ﻿  hit.cpp
+  movecalc.cpp
      Создается библиотека E:\Программирование\AeroHockey\AeroHockey\physics\movecalcVS\x64\Release\movecalcVS.lib и объект E:\Программирование\AeroHockey\AeroHockey\physics\movecalcVS\x64\Release\movecalcVS.exp
   Создание кода
   2 of 17 functions (11.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
   movecalcVS.vcxproj -> E:\Программирование\AeroHockey\AeroHockey\physics\movecalcVS\x64\Release\movecalcVS.dll

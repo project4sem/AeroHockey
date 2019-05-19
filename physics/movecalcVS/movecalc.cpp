@@ -91,7 +91,7 @@ extern "C"
 
 		ret.w = coord.w - result * dt;
 
-		if (ret.w * coord.w < 0)
+		if (ret.w * coord.w <= 0)
 		{
 			ret.w = 0;
 		}

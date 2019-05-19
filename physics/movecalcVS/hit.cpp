@@ -100,7 +100,7 @@ extern "C"
 
 		if ( sgn_before * sgn_after <= 0 && mu != 0)
 		{
-			printf("Pereschet\n");
+		//	printf("Pereschet\n");
 			double c = fabs(current.vx - r_hit * current.w) / 2 * m / mu;
 			ret_hit.vx = hit_vx(c);
 			ret_hit.w  = hit_w(c);
