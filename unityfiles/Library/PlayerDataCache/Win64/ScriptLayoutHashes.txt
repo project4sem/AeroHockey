@@ -129,10 +129,10 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
 94017dcc9f00fe671ea7dc427b4da011 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.InputManager
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.UIManager
+8161f171fad1b582a65137c91f853cef Assembly-CSharp.dll:.UIManager
 c5b0e47a170b2976a70a737115f6b77e Assembly-CSharp.dll:.VolumeChange
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
-a866ea8fafb2aeaf6f1d79d00db5c65c Assembly-CSharp.dll:.Ring
+60fea51cd35d295940d544b81f462ef0 Assembly-CSharp.dll:.Ring
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
@@ -185,3 +185,4 @@ c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 10d40c4c007ed0fe1a397ef11ee530fa Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.ColorCorrectionLookup
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Arrow
 bcde4f9a9d6c171597b0fc02fe95bd39 Assembly-CSharp.dll:.ProcessManager
+80492977cfe4d589d194ebfb89c25dfb Assembly-CSharp.dll:.PaintManager

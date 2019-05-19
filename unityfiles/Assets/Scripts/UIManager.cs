@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     GameObject[] pauseObjects;
+    public InputField rotSpeed_IF;
+    public InputField mu_IF;
 
     void Start()
     {
@@ -28,6 +31,23 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 1;
                 HidePaused();
             }
+        }
+
+        double mu, rotSpeed;
+
+        if (double.TryParse(mu_IF.text.Replace('.', ','), out mu))
+        {
+            if (mu > 0.8)
+                mu_IF.text = "0.8";
+            if (mu < 0)
+                mu_IF.text = "0";
+        }
+        if (double.TryParse(rotSpeed_IF.text.Replace('.', ','), out rotSpeed))
+        {
+            if (rotSpeed > 100)
+                rotSpeed_IF.text = "100";
+            if (rotSpeed < -100)
+                rotSpeed_IF.text = "-100";
         }
     }
 
