@@ -14,9 +14,9 @@ public class PaintManager : MonoBehaviour
         {
             failObject.GetComponent<Renderer>().material = failMaterial;
         }
-        foreach (GameObject failObject in GameObject.FindGameObjectsWithTag("Collision Object"))
+        foreach (GameObject collisionObject in GameObject.FindGameObjectsWithTag("Collision Object"))
         {
-            failObject.GetComponent<Renderer>().material = colliderMaterial;
+            collisionObject.GetComponent<Renderer>().material = colliderMaterial;
         }
     }
 

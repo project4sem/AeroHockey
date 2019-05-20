@@ -12,6 +12,8 @@ TagManager:
   - Background
   - Fail Object
   - Collision Object
+  - Moving Block
+  - SetInactiveOnPause
   layers:
   - Default
   - TransparentFX

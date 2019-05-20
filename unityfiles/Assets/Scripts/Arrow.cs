@@ -27,9 +27,9 @@ public class Arrow : MonoBehaviour
         CreateArrow();
         cam = Camera.main;
         //Define basic quaternion position of the arrow
-        defaultQ = gameObject.transform.rotation;
+        defaultQ = gameObject.transform.localRotation;
         //Define basic vector position of the arrow
-        defaultPos = new Vector3(0, length + length / 5, 0);
+        defaultPos = new Vector3(gameObject.transform.localPosition.x, length + length / 5, gameObject.transform.localPosition.y);
     }
 
     private void OnEnable()
@@ -40,11 +40,15 @@ public class Arrow : MonoBehaviour
     {
         EventManager.StopListening("changearrowpos", delegate { ChangeArrowPos(); });
     }
-    public void RemoveArrow() {
+    public void RemoveArrow()
+    {
         Debug.Log("ArrowDestroyed1");
         Destroy(this.gameObject);
     }
-    void ChangeArrowPos() {
+    void ChangeArrowPos()
+    {
+        if (Time.timeScale == 0)
+            return;
         Event curEvent = Event.current;
         Vector3 point = new Vector3();
         Vector2 mousePos = new Vector2();
@@ -52,7 +56,7 @@ public class Arrow : MonoBehaviour
         mousePos.x = Input.mousePosition.x;
         mousePos.y = Input.mousePosition.y;
         //Define vector connecting camera and mouse position
-        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
+        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0));
         //Set z coordinate of vector to 0 because we are in OXY plane,
         point.z = 0;
 
@@ -60,6 +64,7 @@ public class Arrow : MonoBehaviour
         Debug.Log(mousePos + "," + cam.nearClipPlane);
 
         scale = Vector3.Distance(Vector3.zero, point) / start_length;
+        Debug.Log(scale);
         float angle = Vector3.Angle(point, defaultPos);
         //Vecor3.Angle return abs(angle), so if angle is negative changes are required,
         if (point.x > 0) {
