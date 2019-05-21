@@ -9,16 +9,16 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 3dca10f864c20f4489c0e5167223388d
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
+    path: Assets/Scenes/Level2(Rot&Fr).unity
     guid: cee01c0180b3e614eb41cba80a71c6a6
   - enabled: 1
-    path: Assets/Scenes/Level2.unity
+    path: Assets/Scenes/Level2(Rot&Fr).unity
     guid: bec4a2169fca6254880e4612f5b538e8
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Level3.unity
-    guid: 7fe959c4f136f564bb0dca8935df5889
-  - enabled: 1
-    path: Assets/Scenes/Level4.unity
+    path: Assets/Scenes/Level4(moving blocks).unity
     guid: 03be2b00862a8d04ea5b23469c1c9499
   - enabled: 1
     path: Assets/Scenes/Level5.unity

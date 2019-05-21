@@ -46,25 +46,33 @@ public class Ring : MonoBehaviour
         CircleCollider2D mc = gameObject.AddComponent<CircleCollider2D>() as CircleCollider2D;
 
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.isKinematic = false;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         launched = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        float vx = 0;
+        float vy = 0;
+
         if (collision.collider.tag == "Background")
             return;
         if (collision.collider.tag == "Victory target")
             Victory();
         if (collision.collider.tag == "Fail Object")
             Defeat();
-
+        if (collision.collider.gameObject.tag == "Moving Block")
+        { 
+            vx = collision.collider.GetComponent<MovingWall>().vx;
+            vy = collision.collider.GetComponent<MovingWall>().vy;
+            Debug.Log("velocity = " + vx + " , " + vy);
+        }
         //EventManager.TriggerEvent("changeorigin" + gameObject.transform.parent.name);
-        Debug.Log("collided " + collision.collider);
+        Debug.Log(move_data.vx + " , " + move_data.vy);
 
-        Obj collider_obj = new Obj(0, 0, collision.collider.transform.eulerAngles.z);
-
+        Obj collider_obj = new Obj(vx, vy, collision.collider.transform.eulerAngles.z);
+        Debug.Log("obj:" + collision.relativeVelocity.x + "," + collision.relativeVelocity.y
+                                                + "," + collision.collider.transform.eulerAngles.z);
         move_data = Hit(0.95, 1, mu, 1, move_data, collider_obj);
         i++;
     }
@@ -79,7 +87,7 @@ public class Ring : MonoBehaviour
            // gameObject.transform.localPosition = new Vector3(speedX * time, speedY * time, 0);
             time += Time.deltaTime;
             move_data = Movecalc(factor_v, factor_w, Time.deltaTime, segmentRadius, move_data);
-            Debug.Log(move_data.vx + "  ,  " + move_data.vy + "  ,  " + move_data.w);
+            //Debug.Log(move_data.vx + "  ,  " + move_data.vy + "  ,  " + move_data.w);
         }
     }
  
