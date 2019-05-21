@@ -71,8 +71,6 @@ extern "C"
 		r_hit = _r;
 
 		obj.phi = M_PI / 2 + obj.phi / 180 * M_PI;
-		//obj.vx = _coord.vx + obj.vx;
-		//obj.vy = _coord.vy + obj.vy;
 
 		current = coord_trans(obj.phi , obj.vx , obj.vy , _coord);
 		

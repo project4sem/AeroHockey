@@ -10,12 +10,6 @@
 
 extern "C"
 {
-	int MOVECALC_API Her(int a)
-	{
-		return a;
-	}
-
-	// movecalc
 	struct Coord coord;
 	struct Coord ret;
 

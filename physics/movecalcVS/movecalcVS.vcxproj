@@ -171,6 +171,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="boost.cpp" />
     <ClCompile Include="movecalc.cpp" />
     <ClCompile Include="hit.cpp" />
     <ClCompile Include="pch.cpp">
