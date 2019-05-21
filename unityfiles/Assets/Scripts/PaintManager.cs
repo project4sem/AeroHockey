@@ -6,6 +6,7 @@ public class PaintManager : MonoBehaviour
 {
     public Material failMaterial;
     public Material colliderMaterial;
+    public Material boosterMaterial;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,10 @@ public class PaintManager : MonoBehaviour
         foreach (GameObject collisionObject in GameObject.FindGameObjectsWithTag("Collision Object"))
         {
             collisionObject.GetComponent<Renderer>().material = colliderMaterial;
+        }
+        foreach (GameObject collisionObject in GameObject.FindGameObjectsWithTag("Booster"))
+        {
+            collisionObject.GetComponent<Renderer>().material = boosterMaterial;
         }
     }
 

@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        if (mu_IF == null)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseControl();

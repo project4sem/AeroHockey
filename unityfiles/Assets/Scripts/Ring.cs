@@ -18,12 +18,13 @@ public class Ring : MonoBehaviour
     private double factor_v = 0.3;
     private double factor_w = 10;
     private float time;
-    private double mu;
+    private double mu = 0.5;
 
 
     private static float pi = 3.1415926535897931f;
 
     private bool launched;
+    private double maxSpeed = 40;
     private readonly float segmentRadius = 1;
     private readonly float tubeRadius = 0.1f;
     private readonly int segments = 32;
@@ -37,7 +38,9 @@ public class Ring : MonoBehaviour
 
     [DllImport("movecalcVS", EntryPoint = "hit")]
     private static extern Coord Hit(double _k, double _m, double _mu, double _r, Coord _coord, Obj obj);
-    
+
+    [DllImport("movecalcVS", EntryPoint = "boost")]
+    private static extern Coord Boost(double v_max, Coord _coord, Obj obj);
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +60,7 @@ public class Ring : MonoBehaviour
 
         if (collision.collider.tag == "Background")
             return;
+        
         if (collision.collider.tag == "Victory target")
             Victory();
         if (collision.collider.tag == "Fail Object")
@@ -65,17 +69,31 @@ public class Ring : MonoBehaviour
         { 
             vx = collision.collider.GetComponent<MovingWall>().vx;
             vy = collision.collider.GetComponent<MovingWall>().vy;
-            Debug.Log("velocity = " + vx + " , " + vy);
         }
+        if (collision.collider.gameObject.tag == "Booster")
+        {
+            return;
+        }
+        gameObject.GetComponentInChildren<AudioSource>().Play();
         //EventManager.TriggerEvent("changeorigin" + gameObject.transform.parent.name);
+        Debug.Log(1000*vx + " , " + 1000*vy);
         Debug.Log(move_data.vx + " , " + move_data.vy);
-
-        Obj collider_obj = new Obj(vx, vy, collision.collider.transform.eulerAngles.z);
-        Debug.Log("obj:" + collision.relativeVelocity.x + "," + collision.relativeVelocity.y
-                                                + "," + collision.collider.transform.eulerAngles.z);
+        Obj collider_obj = new Obj(1000*vx, 1000*vy, collision.collider.transform.eulerAngles.z);
         move_data = Hit(0.95, 1, mu, 1, move_data, collider_obj);
-        i++;
     }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.tag == "Booster")
+        {
+
+            Debug.Log("boost");
+            Obj boost = new Obj(0, 0, collision.collider.transform.eulerAngles.z - 0);
+            move_data = Boost(maxSpeed, move_data, boost);
+            return;
+        }
+    }
+
+    
 
     void Update()
     {

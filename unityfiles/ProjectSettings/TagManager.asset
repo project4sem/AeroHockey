@@ -14,6 +14,7 @@ TagManager:
   - Collision Object
   - Moving Block
   - SetInactiveOnPause
+  - Booster
   layers:
   - Default
   - TransparentFX
