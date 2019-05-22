@@ -10,7 +10,7 @@ public class Ring : MonoBehaviour
 {
     private Coord move_data;
 
-    private int i = 0;
+
 
     private float speedX;
     private float speedY;

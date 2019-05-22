@@ -189,3 +189,4 @@ c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 10d40c4c007ed0fe1a397ef11ee530fa Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.ColorCorrectionLookup
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Arrow
 bcde4f9a9d6c171597b0fc02fe95bd39 Assembly-CSharp.dll:.ProcessManager
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.MusicClass
