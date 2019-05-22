@@ -4,6 +4,7 @@
 #include "math.h"
 #include <gsl/gsl_integration.h>
 #include "sys/types.h"
+#include <iostream>
 #include "movecalcVS.h"
 
 struct Coord coord_trans(double phi, struct Coord _coord)
@@ -16,6 +17,13 @@ struct Coord coord_trans(double phi, struct Coord _coord)
 
 struct Coord MOVECALC_API boost(double v_max, struct Coord _coord , struct Obj obj)
 {
+	if (v_max <= 0)
+	{
+		std::cerr << "Invalid arguments\n";
+		struct Coord inv = { 0 , 0 , 0 , 0 , 0 };
+		return inv;
+	}
+	
 	double factor_v = exp((v_max - fabs(_coord.vx)) / v_max) - 1;
 	obj.phi = M_PI / 2 + obj.phi / 180 * M_PI;
 

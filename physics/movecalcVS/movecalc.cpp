@@ -4,6 +4,7 @@
 #include "math.h"
 #include <gsl/gsl_integration.h>
 #include "sys/types.h"
+#include <iostream>
 #include "movecalcVS.h"
 
 #define THREADS_NUM 3
@@ -19,7 +20,7 @@ extern "C"
 	double func_vy(double x, void* params) { return factor_v * (coord.vy + coord.w * r * cos(x)) / sqrt(pow((coord.vx - coord.w * r * sin(x)), 2) + pow((coord.vy + coord.w * r * cos(x)), 2)); }
 	double func_w(double x, void* params) { return factor_w * (r * cos(x) * (coord.vy + coord.w * r * cos(x)) - r * sin(x) * (coord.vx - coord.w * r * sin(x))) / sqrt(pow((coord.vx - coord.w * r * sin(x)), 2) + pow((coord.vy + coord.w * r * cos(x)), 2)); }
 
-	static DWORD WINAPI pthread_func_vx(void*)
+	static DWORD pthread_func_vx(void*)
 	{
 		// integration workflow init
 		gsl_integration_workspace* w = gsl_integration_workspace_alloc(1000);
@@ -45,7 +46,7 @@ extern "C"
 	}
 
 
-	static DWORD WINAPI pthread_func_vy(void*)
+	static DWORD pthread_func_vy(void*)
 	{
 		// integration workflow init
 		gsl_integration_workspace* w = gsl_integration_workspace_alloc(1000);
@@ -71,7 +72,7 @@ extern "C"
 	}
 
 
-	static DWORD WINAPI pthread_func_w(void*)
+	static DWORD pthread_func_w(void*)
 	{
 		// integration workflow init
 		gsl_integration_workspace* w = gsl_integration_workspace_alloc(1000);
@@ -98,6 +99,13 @@ extern "C"
 
 	struct Coord MOVECALC_API movecalc(double _factor_v, double _factor_w, double _dt, double _r, struct Coord _coord)
 	{
+		if (_factor_v <= 0 || _factor_w <= 0 || _dt <= 0 || _r <= 0)
+		{
+			std::cerr << "Invalid arguments\n";
+			struct Coord inv = { 0 , 0 , 0 , 0 , 0 };
+			return inv;
+		}
+			
 		if (_coord.vx == 0 && _coord.vy == 0 && _coord.w == 0)
 		{
 			ret = _coord;
@@ -118,7 +126,6 @@ extern "C"
 		hThreads[2] = CreateThread(NULL, 0, &pthread_func_w, NULL, 0, NULL);
 
 		WaitForMultipleObjects(THREADS_NUM, hThreads, TRUE, INFINITE);
-
 
 		return ret;
 	}

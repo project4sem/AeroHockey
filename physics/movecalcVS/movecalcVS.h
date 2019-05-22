@@ -22,7 +22,7 @@ extern "C"
 	};
 	
 	struct Coord MOVECALC_API movecalc(double _factor_v, double _factor_w, double _dt, double _r, struct Coord _coord);
-	struct Coord MOVECALC_API hit(double _k, double _m, double _mu, double _r, struct Coord _coord, struct Obj obj);
+	struct Coord MOVECALC_API hit(double k, double m, double mu, double r, struct Coord coord, struct Obj obj);
 	struct Coord MOVECALC_API boost(double v_max, struct Coord _coord, struct Obj obj);
 }
 
