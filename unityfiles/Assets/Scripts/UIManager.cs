@@ -23,11 +23,14 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseControl();
         }
-
+        if (mu_IF == null)
+            return;
         double mu, rotSpeed;
 
         if (double.TryParse(mu_IF.text.Replace('.', ','), out mu))

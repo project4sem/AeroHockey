@@ -9,18 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 3dca10f864c20f4489c0e5167223388d
   - enabled: 1
-    path: Assets/Scenes/Level2(Rot&Fr).unity
-    guid: cee01c0180b3e614eb41cba80a71c6a6
+    path: Assets/Scenes/Level1(Simple).unity
+    guid: 50954db80900c17489449b6ff1bc99ad
   - enabled: 1
     path: Assets/Scenes/Level2(Rot&Fr).unity
-    guid: bec4a2169fca6254880e4612f5b538e8
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+    guid: 04b067b0905f11b41a7f476f8501d1d6
+  - enabled: 1
+    path: Assets/Scenes/Level3(Labirynth).unity
+    guid: b96c64c76c98f6a4c9a624c140789169
   - enabled: 1
     path: Assets/Scenes/Level4(moving blocks).unity
     guid: 03be2b00862a8d04ea5b23469c1c9499
   - enabled: 1
-    path: Assets/Scenes/Level5.unity
-    guid: d8cc7c3f43f9911438d00c6f06e04d90
+    path: Assets/Scenes/VictoryScreen.unity
+    guid: 97a19565fb094af4fa530496e7a5f404
   m_configObjects: {}

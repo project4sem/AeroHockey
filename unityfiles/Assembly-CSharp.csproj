@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\MoveArrowTrigger.cs" />
     <Compile Include="Assets\Scripts\movingBlock.cs" />
     <Compile Include="Assets\Scripts\MovingWall.cs" />
+    <Compile Include="Assets\Scripts\MusicClass.cs" />
     <Compile Include="Assets\Scripts\Origin.cs" />
     <Compile Include="Assets\Scripts\Paint.cs" />
     <Compile Include="Assets\Scripts\PaintManager.cs" />
