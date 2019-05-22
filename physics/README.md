@@ -1,12 +1,14 @@
-# movecalc .dll
-This is a short man how to use movecalc ``.dll``.
+# movecalcVS.dll
+This is a short man how to use ``movecalcVS.dll``.
 In [this](https://github.com/project4sem/AeroHockey/tree/master/physics/movecalcVS/x64/Release) path you can find ``movecalcVS.dll`` file.
 
-This is the main function: 
+This are the main functions: 
 ```
-struct Ret_all DLL_EXPORT movecalc(double _factor_v , double _factor_w , double _dt , double _r , struct Coord _coord)
+struct Coord movecalc(double _factor_v, double _factor_w, double _dt, double _r, struct Coord _coord);
+struct Coord hit(double k, double m, double mu, double r, struct Coord coord, struct Obj obj);
+struct Coord boost(double v_max, struct Coord _coord, struct Obj obj);
 ```
-, structs are defined this way:
+Structs is defined this way:
 ```
 struct Coord
 {
@@ -14,23 +16,26 @@ struct Coord
     double vx , vy , w;
 };
 
-struct Ret_factors
+struct Obj
 {
-    double cx0 , cx1 , cx2;
-    double cy0 , cy1 , cy2;
-};
-
-struct Ret_all
-{
-    struct Coord coord;
-    struct Ret_factors factors;
+	double vx, vy;
+	double phi;
 };
 ```
-Also, ``_factor_v``, ``_factor_w`` and ``_r`` are factors of intigrations, which are defined by user.
-``_dt`` is a time of discritisation of movement.
 
-This function gets ``_coord`` of object and returns ``struct Ret_all``, which consists of ``struct Coord`` - a position of object afer ``_dt`` and ``struct Ret_factors`` - describes movement at this time:
-```
-x = cx0 + cx1*t + cx2*t^2
-y = cy0 + cy1*t + cy2*t^2
-```
+# movecalc
+``_factor_v > 0``, ``_factor_w > 0`` and ``_r > 0`` are factors of intigrations, which are defined by user.
+``_dt > 0`` is a time of discritisation of movement.
+
+``movecalc`` function gets ``_coord`` of object and returns ``struct Coord`` - a position of object afer ``_dt``.
+
+# hit
+``1 >= k > 0``, ``m > 0``, ``mu > 0``, ``r > 0`` are factors. 
+``obj`` cosists of ``vx`` and ``vy`` velocities of ring-hit wall, ``phi`` is an angle of tangent wall in degrees.
+This function returns ``struct Coord`` after hit.
+
+# boost
+``v_max > 0`` is a factor.
+``obj`` cosists of ``phi`` an angle of tangent boost in degrees.
+``obj.vx`` and ``obj.vy`` are not used.
+This function returns ``struct Coord`` after boost.
