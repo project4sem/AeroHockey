@@ -57,7 +57,7 @@ extern "C"
 
 	struct Coord MOVECALC_API hit(double k, double m, double mu , double r, struct Coord coord, struct Obj obj)
 	{
-		if (k <= 0 || k > 1 || m <= 0 || mu <= 0 || r <= 0)
+		if (k <= 0 || k > 1 || m <= 0 || mu < 0 || r <= 0)
 		{
 			std::cerr << "Invalid arguments\n";
 			struct Coord inv = { 0 , 0 , 0 , 0 , 0 };

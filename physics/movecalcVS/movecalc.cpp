@@ -99,7 +99,7 @@ extern "C"
 
 	struct Coord MOVECALC_API movecalc(double _factor_v, double _factor_w, double _dt, double _r, struct Coord _coord)
 	{
-		if (_factor_v <= 0 || _factor_w <= 0 || _dt <= 0 || _r <= 0)
+		if (_factor_v <= 0 || _factor_w <= 0 || _dt < 0 || _r <= 0)
 		{
 			std::cerr << "Invalid arguments\n";
 			struct Coord inv = { 0 , 0 , 0 , 0 , 0 };

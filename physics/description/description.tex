@@ -1,0 +1,118 @@
+\documentclass[12pt]{report}
+\usepackage[left=2cm,right=2cm,
+    top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[russian]{babel}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{floatflt}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{sistyle}
+\usepackage{amsmath}
+\usepackage{arydshln}
+\usepackage{enumerate}
+\usepackage{pgfplots}
+\usepackage{wrapfig}
+\usepackage [ warn ] { mathtext }
+\usepackage{fancyhdr}
+\usepackage{verbatim}
+\usepackage{amssymb}
+
+\pagestyle{fancy}
+\fancyhead[L]{ Aero Hockey}
+\fancyhead[R]{ movecalcVS.dll}
+
+
+\graphicspath{{pic/}}
+
+
+\begin{document}
+\section*{\centering Описание вычислений и их реализации}
+\subsection*{\centering movecalc.dll}
+\indent \indent
+Рассмотрю движение тонкого кольца по шероховатой поверхности в ее плоскости.
+Введу его параметры: $r$ -- радиус кольца, $m$ -- масса кольца, $\vec V$ -- скорость кольца, $\vec \omega$ -- угловая скорость кольца.
+Введу остальные параметры системы: $\mu$ -- коэффициент трения стола, $g$ -- ускорение свободного падения.
+
+Введу правую декартову систему координат $Oxyz$. Тогда, выражения скорость и угловое ускорение определяется как:
+\begin{equation*}
+	\vec V = \begin{pmatrix} V_x \\  V_y \\ 0 \end{pmatrix}, \quad \vec \omega = \begin{pmatrix} 0 \\ 0 \\ \omega \end{pmatrix}
+\end{equation*}
+
+Запишу закон изменения количества движения и  закон изменения момента количества движения:
+\begin{equation*}
+	m \dot{\vec V} = -\mu g \iint \limits_S \rho \cdot \frac{\vec V + \vec \omega \times \vec r}{|\vec V + \vec \omega \times \vec r|} \,dS, \quad I \dot{\vec \omega} = -\mu g \iint \limits_S \rho \vec r \times \frac{\vec V + \vec \omega \times \vec r}{|\vec V + \vec \omega \times \vec r|} \,dS
+\end{equation*}
+
+, где $\rho = m / S$ -- поверхностная плотность кольца.
+Возьму векторные произведения:
+\begin{equation*}
+	\vec V + \vec \omega \times \vec r = \begin{pmatrix} V_x \\ V_y \\ 0 \end{pmatrix} + \begin{vmatrix} \vec i & \vec j & \vec k \\ 0 & 0 & \omega \\ r_x & r_y & 0 \end{vmatrix} = \begin{pmatrix} V_x - \omega r_y \\ V_y + \omega r_x \\ 0 \end{pmatrix}
+\end{equation*}
+\begin{equation*}
+	\vec r \times (\vec V + \vec \omega \times \vec r) = \begin{vmatrix} \vec i & \vec j & \vec k \\ r_x & r_y & 0 \\  V_x - \omega r_y & V_y + \omega r_x & 0 \end{vmatrix} = \begin{pmatrix} 0 \\ 0 \\ r_x (V_y + \omega r_x) - r_y(V_x - \omega r_y) \end{pmatrix}
+\end{equation*}
+\begin{equation*}
+	|\vec V +\vec \omega \times \vec r| = \sqrt{(V_x - \omega r_y)^2 + (V_y + \omega r_x)^2}
+\end{equation*}
+
+
+Так как кольцо тонкое, то перейду от интеграла по площади к интегралу по углу, который отсчитывается от вертикали.
+Тогда $r_x = r \cos{\alpha}$, $r_y = r \sin{\alpha}$.
+Тогда, для компонент скоростей :
+\begin{equation}
+	\dot{V_x} = - \mu \frac gs \cdot 2 \pi h \int\limits_0^{2 \pi} \frac{V_x - \omega r \sin{\alpha}}{\sqrt{(V_x - \omega r \sin{\alpha})^2 + (V_y+ \omega r \cos{\alpha})^2}} \, d \alpha
+	\label{eq1}
+\end{equation}
+\begin{equation}
+	\dot{V_y} = - \mu \frac gs \cdot 2 \pi h \int\limits_0^{2 \pi} \frac{V_y + \omega r \cos{\alpha}}{\sqrt{(V_x - \omega r \sin{\alpha})^2 + (V_y+ \omega r \cos{\alpha})^2}} \, d \alpha
+	\label{eq2}
+\end{equation}
+\begin{equation}
+	\dot{\omega} = - \mu \frac g{sr^2} \cdot 2 \pi h \int\limits_0^{2 \pi} \frac{ r \cos{\alpha} (V_y + \omega r \cos{\alpha}) - r \sin{\alpha}(V_x - \omega r \sin{\alpha})}{\sqrt{(V_x - \omega r \sin{\alpha})^2 + (V_y+ \omega r \cos{\alpha})^2}} \, d \alpha
+	\label{eq3}
+\end{equation}
+
+Зная компоненты ускорения и угловое ускорение получу значения координат и угла поворота через малый момент времени $dt$.
+Для того чтобы траектория движения была гладкой необходимо, чтобы скорость имела только разрывы первого рода.
+Тогда, буду искать движение кольца в виде равноускоренного движения, где через $dt$ ускорения меняются, а их значения определяются выражениями \ref{eq1} -- \ref{eq3}.
+
+Тогда, скорости кольца к через $dt$:
+\begin{equation*}
+	V_{x} = V_{x0} + \dot{V_x} dt, \quad V_{y} = V_{y0} + \dot{V_y} dt , \quad \omega = \omega_0 + \dot{\omega} dt,
+\end{equation*}
+И координаты кольца через $dt$:
+\begin{equation*}
+	x = x_0 + V_{x0} dt + \dot{V_x} \frac{dt^2}{2}, \quad y = y_0 + V_{y0} dt + \dot{V_y} \frac{dt^2}{2},
+\end{equation*}
+
+\subsection*{\centering Реализация movecalc.dll}
+
+\begin{itemize}
+\item
+	Реализацию интегрирования я взял из библиотеки \verb'<gsl/gsl_integration.h>'.
+	Я выбрал функцию \verb'gsl_integration_qags', ее описание:	
+\begin{quotation}
+This function applies the Gauss-Kronrod 21-point integration rule adaptively until an estimate of the integral of f over (a,b) is achieved within the desired absolute and relative error limits, epsabs and epsrel. The results are extrapolated using the epsilon-algorithm, which accelerates the convergence of the integral in the presence of discontinuities and integrable singularities. The function returns the final approximation from the extrapolation, result, and an estimate of the absolute error, abserr. The subintervals and their results are stored in the memory provided by workspace. The maximum number of subintervals is given by limit, which may not exceed the allocated size of the workspace.
+\end{quotation}
+
+
+\item
+	При переходе значения скорости через ноль, что часто должно сопровождаться полной остановкой тела, из-за предложенного метода получения скорости, ее значение начинает колебаться в окрестности нуля, но никогда не попадает в него.
+	Поэтому, если исходная скорость и полученная отличаются знаками, то полученная скорость заменяется нулем.
+	при этом, если угловая скорость стала нулем, то изменить это значение может только удар о стену, но не поступательное движение.
+
+\item
+	Для увеличения скорости вычислений, они ведутся параллельно, в трех потоках.
+
+\end{itemize}
+
+
+
+
+
+
+
+
+\end{document}
