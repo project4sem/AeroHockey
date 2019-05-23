@@ -41,6 +41,8 @@ extern "C"
 			ret.vx = 0;
 		}
 
+		ret.x = coord.x + ret.vx * dt + result * dt * dt / 2;
+
 		gsl_integration_workspace_free(w);
 		ExitThread(0);
 	}
@@ -65,7 +67,7 @@ extern "C"
 			ret.vy = 0;
 		}
 
-		ret.x = coord.x + ret.vx * dt + result * dt * dt / 2;
+		ret.y = coord.y + ret.vy * dt + result * dt * dt / 2;
 
 		gsl_integration_workspace_free(w);
 		ExitThread(0);
@@ -90,8 +92,6 @@ extern "C"
 		{
 			ret.w = 0;
 		}
-
-		ret.y = coord.y + ret.vy * dt + result * dt * dt / 2;
 
 		gsl_integration_workspace_free(w);
 		ExitThread(0);
