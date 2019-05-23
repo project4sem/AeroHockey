@@ -11,7 +11,7 @@ extern "C"
 {
 	struct Coord
 	{
-		double x, y;
+		double x, y, phi;
 		double vx, vy, w;
 	};
 

@@ -93,6 +93,8 @@ extern "C"
 			ret.w = 0;
 		}
 
+		ret.phi = coord.phi + ret.w * dt + result * dt * dt / 2;
+
 		gsl_integration_workspace_free(w);
 		ExitThread(0);
 	}
