@@ -25,12 +25,12 @@ struct Obj
 
 # movecalc
 ``_factor_v > 0``, ``_factor_w > 0`` and ``_r > 0`` are factors of intigrations, which are defined by user.
-``_dt > 0`` is a time of discritisation of movement.
+``_dt >= 0`` is a time of discritisation of movement.
 
 ``movecalc`` function gets ``_coord`` of object and returns ``struct Coord`` - a position of object afer ``_dt``.
 
 # hit
-``1 >= k > 0``, ``m > 0``, ``mu > 0``, ``r > 0`` are factors. 
+``1 >= k > 0``, ``m > 0``, ``mu >= 0``, ``r > 0`` are factors. 
 ``obj`` cosists of ``vx`` and ``vy`` velocities of ring-hit wall, ``phi`` is an angle of tangent wall in degrees.
 This function returns ``struct Coord`` after hit.
 
